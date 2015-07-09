@@ -1,4 +1,4 @@
-FROM rocker/hadleyleyverse
+FROM rocker/hadleyverse
 MAINTAINER Jeffrey Arnold jeffrey.arnold@gmail.com
 
 # Install rstan
