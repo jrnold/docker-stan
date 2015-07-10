@@ -7,6 +7,7 @@ ENV STAN_HOME /cmdstan-${STAN_VERSION}/
 
 RUN wget -q https://github.com/stan-dev/cmdstan/releases/download/v2.6.2/cmdstan-${STAN_VERSION}.tar.gz \
     && tar -xf cmdstan-${STAN_VERSION}.tar.gz \
+    && rm /cmdstan-${STAN_VERSION}.tar.gz \
     && cd cmdstan-${STAN_VERSION} \
     && make bin/stanc \
     && make bin/print \
