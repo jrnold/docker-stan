@@ -1,4 +1,5 @@
-FROM rocker/hadleyverse
+# FROM rocker/hadleyverse
+FROM jrnold/rstan
 MAINTAINER Jeffrey Arnold jeffrey.arnold@gmail.com
 
 ENV STAN_VERSION 2.6.2
