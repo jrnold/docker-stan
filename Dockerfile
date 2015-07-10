@@ -1,6 +1,13 @@
 FROM rocker/hadleyverse
 MAINTAINER Jeffrey Arnold jeffrey.arnold@gmail.com
 
-# Install rstan
-RUN Rscript -e 'source("http://mc-stan.org/rstan/install.R", echo = TRUE, max.deparse.length = 2000); install_rstan()'
+# ENV R_MAKEVARS_USER
+# ENV R_MAKEVARS_SITE
+
+RUN install2.r --error \
+    inline \
+    RcppEigen \
+    && Rscript -e 'devtools::install_url("http://cran.r-project.org/src/contrib/Archive/BH/BH_1.55.0-3.tar.gz")' \
+    && Rscript -e 'install.packages("rstan",repos="http://rstan.org/repo/",dependencies=FALSE)' \
+    && Rscript -e 'rstan::set_cppo("fast")'
 
