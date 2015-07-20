@@ -1,11 +1,11 @@
 # FROM rocker/hadleyverse
-FROM jrnold/rstan
+FROM jrnold/rstan:latest
 MAINTAINER Jeffrey Arnold jeffrey.arnold@gmail.com
 
-ENV STAN_VERSION 2.6.2
+ENV STAN_VERSION 2.7.0
 ENV STAN_HOME /cmdstan-${STAN_VERSION}/
 
-RUN wget -q https://github.com/stan-dev/cmdstan/releases/download/v2.6.2/cmdstan-${STAN_VERSION}.tar.gz \
+RUN wget -q https://github.com/stan-dev/cmdstan/releases/download/v${STAN_VERSION}/cmdstan-${STAN_VERSION}.tar.gz \
     && tar -xf cmdstan-${STAN_VERSION}.tar.gz \
     && rm /cmdstan-${STAN_VERSION}.tar.gz \
     && cd cmdstan-${STAN_VERSION} \
