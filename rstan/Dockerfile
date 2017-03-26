@@ -1,25 +1,17 @@
-FROM rocker/hadleyverse:latest
+FROM rocker/verse:latest
 MAINTAINER Jeffrey Arnold jeffrey.arnold@gmail.com
 
 # Install clang to use as compiler
 # clang seems to be more memory efficient with the templates than g++
 # with g++ rstan cannot compile on docker hub due to memory issues
-RUN apt-get update \ 
+RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
-                   clang
+        clang
 
 # Global site-wide config
 RUN mkdir -p $HOME/.R/ \
     && echo "\nCXX=clang++ -ftemplate-depth-256\n" >> $HOME/.R/Makevars \
     && echo "CC=clang\n" >> $HOME/.R/Makevars
-
-# Install rstan
-RUN install2.r --error \
-    inline \
-    RcppEigen \
-    StanHeaders \
-    rstan \
-    KernSmooth
 
 # Config for rstudio user
 RUN mkdir -p /home/rstudio/.R/ \
@@ -29,9 +21,15 @@ RUN mkdir -p /home/rstudio/.R/ \
     && echo "\nrstan::rstan_options(auto_write = TRUE)" >> /home/rstudio/.Rprofile \
     && echo "options(mc.cores = parallel::detectCores())" >> /home/rstudio/.Rprofile
 
-# Install loo
+# Install rstan
 RUN install2.r --error \
-    matrixStats \
-    loo 
-
-
+    inline \
+    RcppEigen \
+    StanHeaders \
+    rstan \
+	loo \
+	bayesplot \
+    rstanarm \
+    rstantools \
+    shinystan \
+    KernSmooth
